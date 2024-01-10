@@ -1,95 +1,67 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+'use client';
+
+import 'swiper/css';
+
+import 'swiper/css/navigation';
+
+import './page.css';
+
+import Image from 'next/image';
+
+import data from './mockData';
+
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation } from 'swiper/modules';
 
 export default function Home() {
+  const classes = ['circle', 'right', 'left'];
+
+  let lastClass = '';
+
+  const dataWithClasses = data.map((item) => {
+    let currentClass;
+    do {
+      currentClass = classes[Math.floor(Math.random() * classes.length)];
+    } while (currentClass === lastClass);
+
+    lastClass = currentClass;
+
+    return {
+      ...item,
+      randomClass: currentClass,
+    };
+  });
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
+    <main className='main'>
+      <div className='wrapper'>
+        <Swiper
+          modules={[Navigation]}
+          spaceBetween={0}
+          slidesPerView='auto'
+          navigation={{
+            nextEl: '.swiper-button-next-unique',
+            prevEl: '.swiper-button-prev-unique',
+          }}>
+          {dataWithClasses.map((item) => (
+            <SwiperSlide
+              key={item.id}
+              className={`slide ${item.title.length > 35 ? 'double-width' : ''}`}>
+              <Image
+                src={item.img}
+                alt={item.title}
+                width={344}
+                height={344}
+                className={item.randomClass}
+              />
+              <h2>{item.title}</h2>
+              <p>{item.date}</p>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+        <div className='swiper-button-prev-unique'></div>
+        <div className='swiper-button-next-unique'></div>
       </div>
     </main>
-  )
+  );
 }

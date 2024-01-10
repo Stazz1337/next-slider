@@ -1,0 +1,59 @@
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.wrapper {
+  width: 95%;
+  position: relative;
+}
+
+.swiper-button-next-unique,
+.swiper-button-prev-unique {
+  width: 173px;
+  height: 25px;
+  position: absolute;
+  cursor: pointer;
+}
+
+.swiper-button-next-unique {
+  background-image: url('/right.svg');
+  background-repeat: no-repeat;
+  right: 0;
+}
+
+.swiper-button-prev-unique {
+  background-image: url('/left.svg');
+  background-repeat: no-repeat;
+  left: 0;
+}
+
+.left {
+  border-top-left-radius: 50%;
+  border-bottom-right-radius: 50%;
+}
+
+.right {
+  border-bottom-left-radius: 50%;
+  border-top-right-radius: 50%;
+}
+
+.circle {
+  border-radius: 40%;
+}
+
+.slide {
+  max-width: 344px;
+}
+
+.double-width {
+  max-width: 688px;
+  min-width: 688px;
+}
+
+.double-width img {
+  width: 100%;
+  object-fit: cover;
+}
